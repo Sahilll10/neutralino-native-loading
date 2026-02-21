@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Native Loading Animation Demo</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+
+  <!-- NATIVE LOADER OVERLAY (shown first, hidden after app is ready) -->
+  <div id="native-loader" class="loader-overlay">
+    <div class="loader-box">
+      <div class="platform-badge" id="platform-badge">Detecting OS...</div>
+      <div class="spinner-wrap">
+        <!-- Mimics what a native C++ GTK/Win32/Cocoa spinner looks like -->
+        <svg class="native-spinner" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="20" fill="none" stroke-width="4"/>
+        </svg>
+      </div>
+      <p class="loader-label">Initialising application...</p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p class="loader-step" id="loader-step">Loading resources...</p>
+    </div>
+  </div>
+
+  <!-- MAIN APP (hidden until fully loaded) -->
+  <div id="app" class="app-shell hidden">
+
+    <header class="app-header">
+      <div class="logo-area">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#6c63ff" stroke-width="2.5"/>
+          <path d="M10 16 L15 21 L22 11" stroke="#6c63ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>NeuLoader Demo</span>
+      </div>
+      <div class="header-info" id="header-info"></div>
+    </header>
+
+    <main class="app-main">
+
+      <section class="hero-card">
+        <h1>Native Loading Animation</h1>
+        <p class="subtitle">A GSoC 2026 research prototype for <strong>Neutralinojs</strong></p>
+        <div class="platform-info-row" id="platform-info-row"></div>
+      </section>
+
+      <section class="cards-grid">
+
+        <div class="card">
+          <div class="card-icon">🖥️</div>
+          <h3>Platform Detection</h3>
+          <p>Reads the current OS and selects the correct native spinner:
+             <strong>GtkSpinner</strong> (Linux),
+             <strong>PBS_MARQUEE</strong> (Windows),
+             <strong>NSProgressIndicator</strong> (macOS).</p>
+          <div class="code-snippet" id="os-snippet">—</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚙️</div>
+          <h3>Persistent Settings</h3>
+          <p>On first launch a <code>settings.json</code> is created inside
+             your app's data directory. Subsequent launches read it to decide
+             whether to show the splash screen.</p>
+          <div class="settings-display" id="settings-display">Loading...</div>
+          <button class="btn btn-outline" id="btn-reset-settings">Reset Settings</button>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📁</div>
+          <h3>Filesystem API</h3>
+          <p>Uses <code>Neutralino.filesystem</code> to read, write, and list
+             files — same APIs the real C++ loader will use to check for a
+             custom <code>loader.gif</code> in app resources.</p>
+          <div class="file-list" id="file-list">Scanning...</div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🔌</div>
+          <h3>Native Extension Concept</h3>
+          <p>A companion C++ extension process communicates over stdin/stdout.
+             It calls the real Win32 / Cocoa / GTK APIs to render a spinner
+             <em>before</em> the webview even starts.</p>
+          <div class="ext-status" id="ext-status">
+            <span class="dot dot-yellow"></span> Extension channel open (simulated)
+          </div>
+          <button class="btn btn-primary" id="btn-simulate-ext">Simulate Extension Ping</button>
+        </div>
+
+      </section>
+
+      <section class="config-preview">
+        <h3>📄 neutralino.config.json — Proposed <code>startupLoader</code> block</h3>
+        <pre id="config-code"></pre>
+      </section>
+
+      <section class="issue-ref">
+        <a href="https://github.com/neutralinojs/neutralinojs/issues/814"
+           target="_blank" class="issue-link">
+          🔗 Related Issue: neutralinojs/neutralinojs#814 — Add native loading animation
+        </a>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@neutralinojs/lib@5.5.0/dist/neutralino.js"></script>
+  <script src="/js/loader.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
