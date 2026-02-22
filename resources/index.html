@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Neutralino Native Loading Demo</title>
+</head>
+<body>
+  <h1>Welcome to Neutralino</h1>
+  <p>The native spinner should appear on startup.</p>
+  <script src="neutralino.js"></script>
+  <script>
+    Neutralino.init(); 
+    Neutralino.window.setTitle("Native Loading Demo");
+    Neutralino.extensions.dispatch('js.neutralino.spinner', 'start');
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
+  "applicationId": "js.neutralino.native.loading",
+  "defaultMode": "window",
+  "version": "1.0.0",
+  "url": "/",
+  "documentRoot": "/resources/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "enableExtensions": true,
+  "extensions": [
+    {
+      "id": "js.neutralino.spinner",
+      "commandLinux": "${NL_PATH}/extensions/binary/linux/spinner",
+      "commandDarwin": "${NL_PATH}/extensions/binary/mac/spinner",
+      "commandWindows": "${NL_PATH}/extensions/binary/win/spinner.exe"
+    }
+  ],
+  "modes": {
+    "window": {
+      "title": "Neutralino Native Loading Demo",
+      "width": 900,
+      "height": 700
+    }
+  }
+}
